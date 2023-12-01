@@ -1,5 +1,3 @@
-(ql:quickload :parse-number)
-(ql:quickload :str)
 (defmacro while (condition &body body)
   `(do ()
        (,condition)
@@ -8,9 +6,8 @@
 (defun part1 ()
   (apply #'+
     (mapcar (lambda (s) 
-        (parse-number:parse-number
-          (let ((digits (remove-if (lambda (x) (or (char> x #\9) (char< x #\0))) s)))
-            (coerce (list (char digits 0) (char digits (1-(length digits)))) 'string))))
+      (let ((digits (remove-if (lambda (x) (or (char> x #\9) (char< x #\0))) s)))
+        (+ (* (digit-char-p (char digits 0)) 10) (digit-char-p (char digits (1-(length digits)))))))
   (uiop:read-file-lines "input"))))
 
 (defun parse-on (substr)
@@ -131,12 +128,6 @@
 (defun part2 ()
   (apply #'+
     (mapcar (lambda (s)
-      (pprint s)
-        (parse-number:parse-number
-          (let ((digits (parse-word s)))
-            (pprint digits)
-            (coerce (list (digit-char (aref digits 0)) (digit-char (aref digits (1-(length digits))))) 'string))))
+      (let ((digits (parse-word s)))
+        (+ (* 10 (aref digits 0)) (aref digits (1-(length digits))))))
   (uiop:read-file-lines "input"))))
-
-(defun p2-test ()
-  (mapcar #'parse-word (uiop:read-file-lines "input")))
