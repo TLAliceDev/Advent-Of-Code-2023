@@ -1,8 +1,3 @@
-(defmacro while (condition &body body)
-  `(do ()
-       (,condition)
-      ,@body))
-
 (defun part1 ()
   (apply #'+
     (mapcar (lambda (s) 
