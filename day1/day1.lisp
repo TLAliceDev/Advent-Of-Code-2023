@@ -1,9 +1,9 @@
-(defun part1 ()
+(defun part1 (input)
   (apply #'+
     (mapcar (lambda (s) 
       (let ((digits (remove-if (lambda (x) (or (char> x #\9) (char< x #\0))) s)))
         (+ (* (digit-char-p (char digits 0)) 10) (digit-char-p (char digits (1-(length digits)))))))
-  (uiop:read-file-lines "input"))))
+  (uiop:read-file-lines input))))
 
 (defun parse-on (substr)
   (unless (< (length substr) 1)
@@ -120,9 +120,9 @@
   digits))
 
 
-(defun part2 ()
+(defun part2 (input)
   (apply #'+
     (mapcar (lambda (s)
       (let ((digits (parse-word s)))
         (+ (* 10 (aref digits 0)) (aref digits (1-(length digits))))))
-  (uiop:read-file-lines "input"))))
+  (uiop:read-file-lines input))))

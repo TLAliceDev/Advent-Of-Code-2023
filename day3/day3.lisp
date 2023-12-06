@@ -55,8 +55,8 @@
   (remove-if-not (lambda (x) (apply #'adjacent-to-symbol-p schematic x))
                  (extract-numbers schematic)))
 
-(defun part1 ()
-  (let ((schematic (uiop:read-file-lines "input.txt")))
+(defun part1 (input)
+  (let ((schematic (uiop:read-file-lines input)))
     (apply #'+
            (mapcar (lambda (x) (parse-number-from-schematic schematic x))
                    (get-adjacent-numbers schematic)))))
@@ -96,8 +96,8 @@
 (defun gear-ratios (gears schematic)
   (mapcar (lambda (x) (* (parse-number-from-schematic schematic (first x)) (parse-number-from-schematic schematic (second x)))) gears))
 
-(defun part2 ()
-  (let ((schematic (uiop:read-file-lines "input.txt")))
+(defun part2 (input)
+  (let ((schematic (uiop:read-file-lines input)))
     (let ((gears (extract-gears schematic))
           (numbers (extract-numbers schematic)))
       (apply #'+ (gear-ratios (get-proper-gears (mapcar (lambda (x) (numbers-adjacent-to-gear x numbers)) gears)) schematic)))))
